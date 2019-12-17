@@ -23,7 +23,18 @@ const Color colorProgressYellowDark = Color(0xfff39c12);
 const Color colorProgressMidnight = Color(0xff34495e);
 const Color colorProgressMidnightDark = Color(0xff2c3e50);
 
-enum RoundedProgressBarTheme { blue, red, green, purple, yellow, midnight }
+const Color colorProgressColorful = Color(0xff34495e);
+const Color colorProgressColorfulDark = Color(0xff2c3e50);
+
+enum RoundedProgressBarTheme {
+  blue,
+  red,
+  green,
+  purple,
+  yellow,
+  midnight,
+  colorful
+}
 
 class RoundedProgressBarStyle {
   final Color backgroundProgress;

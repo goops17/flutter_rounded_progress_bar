@@ -12,7 +12,7 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   double percent = 10;
-
+  List<Color> colors = [Colors.red, Colors.green, Colors.blue, Colors.grey];
   @override
   void initState() {
     super.initState();
@@ -30,7 +30,7 @@ class _MyAppState extends State<MyApp> {
               icon: Icon(Icons.add),
               onPressed: () {
                 setState(() {
-                  if (percent <= 100) percent += 5;
+                  if (percent < 100) percent += 5;
                 });
               },
             ),
@@ -38,7 +38,7 @@ class _MyAppState extends State<MyApp> {
               icon: Icon(Icons.remove),
               onPressed: () {
                 setState(() {
-                  if (percent >= 0) percent -= 5;
+                  if (percent > 0) percent -= 5;
                 });
               },
             )
@@ -50,6 +50,14 @@ class _MyAppState extends State<MyApp> {
             child: ListView(children: <Widget>[
               Column(
                 children: <Widget>[
+                  RoundedProgressBar(
+                    percent: percent,
+                    childTop: Text("$percent%"),
+                    theme: RoundedProgressBarTheme.colorful,
+                    //colors: colors,
+                    height: 18,
+                    borderRadius: BorderRadius.circular(0),
+                  ),
                   RoundedProgressBar(
                       percent: percent, childCenter: Text("$percent%")),
                   RoundedProgressBar(
