@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rounded_progress_bar/rounded_progress_bar_style.dart';
 
-
-
 class RoundedProgressBar extends StatefulWidget {
   final double percent;
   final double height;
@@ -10,9 +8,13 @@ class RoundedProgressBar extends StatefulWidget {
   final RoundedProgressBarTheme theme;
   final EdgeInsetsGeometry margin;
   final EdgeInsetsGeometry paddingChildLeft;
+  final EdgeInsetsGeometry paddingChildTop;
+  final EdgeInsetsGeometry paddingChildBottom;
   final EdgeInsetsGeometry paddingChildRight;
   final Widget childCenter;
   final Widget childLeft;
+  final Widget childTop;
+  final Widget childBottom;
   final Widget childRight;
   final bool reverse;
   final int milliseconds;
@@ -27,10 +29,14 @@ class RoundedProgressBar extends StatefulWidget {
       this.reverse = false,
       this.childCenter,
       this.childLeft,
+      this.childTop,
+      this.childBottom,
       this.childRight,
       this.milliseconds = 500,
       this.borderRadius,
       this.paddingChildLeft,
+      this.paddingChildTop,
+      this.paddingChildBottom,
       this.paddingChildRight}) {
     assert(percent >= 0);
     assert(height > 0);
@@ -49,6 +55,8 @@ class RoundedProgressBarState extends State<RoundedProgressBar> {
   AlignmentGeometry alignment = AlignmentDirectional.centerStart;
   BorderRadiusGeometry borderRadius;
   EdgeInsetsGeometry paddingChildLeft;
+  EdgeInsetsGeometry paddingChildTop;
+  EdgeInsetsGeometry paddingChildBottom;
   EdgeInsetsGeometry paddingChildRight;
 
   @override
@@ -115,6 +123,18 @@ class RoundedProgressBarState extends State<RoundedProgressBar> {
       paddingChildLeft = widget.paddingChildLeft;
     }
 
+    if (widget.paddingChildTop == null) {
+      paddingChildTop = EdgeInsets.all(16);
+    } else {
+      paddingChildTop = widget.paddingChildTop;
+    }
+
+    if (widget.paddingChildBottom == null) {
+      paddingChildBottom = EdgeInsets.all(16);
+    } else {
+      paddingChildBottom = widget.paddingChildBottom;
+    }
+
     if (widget.paddingChildRight == null) {
       paddingChildRight = EdgeInsets.all(16);
     } else {
@@ -135,6 +155,11 @@ class RoundedProgressBarState extends State<RoundedProgressBar> {
             BoxDecoration(borderRadius: borderRadius, color: style.colorBorder),
         padding: EdgeInsets.all(style.borderWidth),
         child: Column(children: <Widget>[
+          if (widget.childTop != null)
+            Padding(
+              padding: paddingChildTop,
+              child: Align(alignment: Alignment.center, child: widget.childTop),
+            ),
           Container(
               constraints: BoxConstraints.expand(height: widget.height),
               decoration: BoxDecoration(
@@ -168,7 +193,13 @@ class RoundedProgressBarState extends State<RoundedProgressBar> {
                         child: widget.childRight),
                   )
                 ]))
-              ]))
+              ])),
+          if (widget.childBottom != null)
+            Padding(
+              padding: paddingChildBottom,
+              child:
+                  Align(alignment: Alignment.center, child: widget.childBottom),
+            ),
         ]));
   }
 }

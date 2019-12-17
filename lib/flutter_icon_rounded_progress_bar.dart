@@ -9,9 +9,13 @@ class IconRoundedProgressBar extends StatefulWidget {
   final RoundedProgressBarTheme theme;
   final EdgeInsetsGeometry margin;
   final EdgeInsetsGeometry paddingChildLeft;
+  final EdgeInsetsGeometry paddingChildTop;
+  final EdgeInsetsGeometry paddingChildBottom;
   final EdgeInsetsGeometry paddingChildRight;
   final Widget childCenter;
   final Widget childLeft;
+  final Widget childTop;
+  final Widget childBottom;
   final Widget childRight;
   final bool reverse;
   final int milliseconds;
@@ -29,10 +33,14 @@ class IconRoundedProgressBar extends StatefulWidget {
     this.reverse = false,
     this.childCenter,
     this.childLeft,
+    this.childTop,
+    this.childBottom,
     this.childRight,
     this.milliseconds = 500,
     this.borderRadius,
     this.paddingChildLeft,
+    this.paddingChildTop,
+    this.paddingChildBottom,
     this.paddingChildRight,
   }) {
     assert(percent >= 0);
@@ -52,6 +60,8 @@ class IconRoundedProgressBarState extends State<IconRoundedProgressBar> {
   AlignmentGeometry alignment = AlignmentDirectional.centerStart;
   BorderRadiusGeometry borderRadius;
   EdgeInsetsGeometry paddingChildLeft;
+  EdgeInsetsGeometry paddingChildTop;
+  EdgeInsetsGeometry paddingChildBottom;
   EdgeInsetsGeometry paddingChildRight;
 
   @override
@@ -118,6 +128,18 @@ class IconRoundedProgressBarState extends State<IconRoundedProgressBar> {
       paddingChildLeft = widget.paddingChildLeft;
     }
 
+    if (widget.paddingChildTop == null) {
+      paddingChildTop = EdgeInsets.all(16);
+    } else {
+      paddingChildTop = widget.paddingChildTop;
+    }
+
+    if (widget.paddingChildBottom == null) {
+      paddingChildBottom = EdgeInsets.all(16);
+    } else {
+      paddingChildBottom = widget.paddingChildBottom;
+    }
+
     if (widget.paddingChildRight == null) {
       paddingChildRight = EdgeInsets.all(16);
     } else {
@@ -138,6 +160,11 @@ class IconRoundedProgressBarState extends State<IconRoundedProgressBar> {
             BoxDecoration(borderRadius: borderRadius, color: style.colorBorder),
         padding: EdgeInsets.all(style.borderWidth),
         child: Column(children: <Widget>[
+          if (widget.childTop != null)
+            Padding(
+              padding: paddingChildTop,
+              child: Align(alignment: Alignment.center, child: widget.childTop),
+            ),
           Container(
               constraints: BoxConstraints.expand(height: widget.height),
               decoration: BoxDecoration(
@@ -197,7 +224,13 @@ class IconRoundedProgressBarState extends State<IconRoundedProgressBar> {
                         child: widget.childRight),
                   )
                 ]))
-              ]))
+              ])),
+          if (widget.childBottom != null)
+            Padding(
+              padding: paddingChildBottom,
+              child:
+                  Align(alignment: Alignment.center, child: widget.childBottom),
+            ),
         ]));
   }
 }

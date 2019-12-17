@@ -30,7 +30,7 @@ class _MyAppState extends State<MyApp> {
               icon: Icon(Icons.add),
               onPressed: () {
                 setState(() {
-                  percent += 5;
+                  if (percent <= 100) percent += 5;
                 });
               },
             ),
@@ -38,7 +38,7 @@ class _MyAppState extends State<MyApp> {
               icon: Icon(Icons.remove),
               onPressed: () {
                 setState(() {
-                  percent -= 5;
+                  if (percent >= 0) percent -= 5;
                 });
               },
             )
@@ -54,7 +54,7 @@ class _MyAppState extends State<MyApp> {
                       percent: percent, childCenter: Text("$percent%")),
                   RoundedProgressBar(
                       childLeft: Text("$percent%",
-                          style: TextStyle(color: Colors.white)),
+                          style: TextStyle(color: Colors.black)),
                       percent: percent,
                       theme: RoundedProgressBarTheme.green),
                   RoundedProgressBar(
@@ -102,7 +102,6 @@ class _MyAppState extends State<MyApp> {
                     borderRadius: BorderRadius.circular(24),
                     percent: percent,
                   ),
-
                   IconRoundedProgressBar(
                     icon: Padding(
                         padding: EdgeInsets.all(8), child: Icon(Icons.person)),
@@ -111,13 +110,38 @@ class _MyAppState extends State<MyApp> {
                     borderRadius: BorderRadius.circular(6),
                     percent: percent,
                   ),
-
                   IconRoundedProgressBar(
                     widthIconSection: 70,
                     reverse: true,
                     icon: Padding(
                         padding: EdgeInsets.all(8),
-                        child: Icon(Icons.airline_seat_flat, color: Colors.white)),
+                        child:
+                            Icon(Icons.airline_seat_flat, color: Colors.white)),
+                    style: RoundedProgressBarStyle(
+                        colorBackgroundIcon: Color(0xffc0392b),
+                        colorProgress: Color(0xffe74c3c),
+                        colorProgressDark: Color(0xffc0392b),
+                        colorBorder: Color(0xff2c3e50),
+                        backgroundProgress: Color(0xff4a627a),
+                        borderWidth: 4,
+                        widthShadow: 6),
+                    margin: EdgeInsets.symmetric(vertical: 16),
+                    borderRadius: BorderRadius.circular(6),
+                    percent: percent,
+                  ),
+                  RoundedProgressBar(
+                      percent: percent, childTop: Text("$percent%")),
+                  IconRoundedProgressBar(
+                    widthIconSection: 70,
+                    reverse: true,
+                    childBottom: Text(
+                      "$percent%",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    icon: Padding(
+                        padding: EdgeInsets.all(8),
+                        child:
+                            Icon(Icons.airline_seat_flat, color: Colors.white)),
                     style: RoundedProgressBarStyle(
                         colorBackgroundIcon: Color(0xffc0392b),
                         colorProgress: Color(0xffe74c3c),
